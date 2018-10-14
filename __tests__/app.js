@@ -14,7 +14,11 @@ describe("generator-complete-react-app:app", () => {
           name: "tmp",
           version: "1.0.0",
           main: "index.js",
-          license: "MIT"
+          license: "MIT",
+          scripts: {
+            test: "echo No tests"
+          },
+          private: true
         }
         fs.writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
         fs.mkdirSync("src")
@@ -29,13 +33,18 @@ describe("generator-complete-react-app:app", () => {
   it("uses shallow to render the app in test", () => {
     assert.fileContent("src/App.test.js", /shallow/)
   })
-  it("updates package.json", done => {
-    expect.assertions(2)
-    fs.readFile("package.json", (err, data) => {
-      const json = JSON.parse(data)
-      expect(json.hasOwnProperty("jest")).toBeTruthy()
-      expect(json.hasOwnProperty("lint-staged")).toBeTruthy()
-      done()
+  it("updates package.json", () => {
+    assert.jsonFileContent("package.json", {
+      "lint-staged": {
+        "src/**/*.{js,jsx,json,css}": [
+          "prettier --write",
+          "eslint src",
+          "git add --verbose"
+        ]
+      },
+      scripts: {
+        precommit: "lint-staged"
+      }
     })
   })
 })
