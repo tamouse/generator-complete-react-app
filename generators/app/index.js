@@ -76,7 +76,11 @@ module.exports = class extends Generator {
     }
     packageJson.scripts.precommit = "lint-staged"
     packageJson["lint-staged"] = {
-      "src/**/*.{js,jsx,json,css}": ["prettier --write", "git add --verbose"]
+      "src/**/*.{js,jsx,json,css}": [
+        "prettier --write",
+        "eslint src",
+        "git add --verbose"
+      ]
     }
     packageJson.jest = {}
     fs.writeFileSync("package.json", JSON.stringify(packageJson, null, 2))
