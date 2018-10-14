@@ -1,6 +1,13 @@
 # generator-complete-react-app [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 > After running create-react-app, you still need testing, linting, and other fun stuff
 
+This generator installs and configures in your newly created react app:
+
+- enzyme, including `src/setupTests.js`, and a new shallow rendered smoke test for `<App />` in `src/App.test.js`
+- prettier, including `.prettierrc`
+
+The original `package.json` is backed up in `package.json.bak`.
+
 ## Installation
 
 First, install [Yeoman](http://yeoman.io) and generator-complete-react-app using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
@@ -13,7 +20,19 @@ npm install -g generator-complete-react-app
 Then generate your new project:
 
 ```bash
+create-react-app myCoolApp
+cd myCoolApp
+git init
+git add .
+git commit -m initial
+```
+
+Then run the completer on that app:
+
+```bash
 yo complete-react-app
+git add .
+git commit -m "prettier, enzyme added"
 ```
 
 ## Getting To Know Yeoman
